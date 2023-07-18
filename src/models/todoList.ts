@@ -13,3 +13,7 @@ export const getTodoList = async () => {
 export const deleteTodoListById = async (id: string) => {
   return await TodoModel.findOneAndDelete({ _id: id });
 };
+
+export const deleteAllTodoList = async () => {
+  return await TodoModel.deleteMany();
+};

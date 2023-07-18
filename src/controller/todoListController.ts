@@ -2,7 +2,7 @@ import express from 'express';
 
 import { HttpStatusCode, MessageResponse } from "../helpers/constants";
 import { messageWrapper } from "../helpers/helpers";
-import { proceedToCreateTodoList, proceedToGetAllTodoList, proceedToDeleteTodoList } from "../service/todoListService";
+import { proceedToCreateTodoList, proceedToGetAllTodoList, proceedToDeleteTodoList, proceedToDeleteAllTodoList } from "../service/todoListService";
 
 export const saveTodoList = async (req: express.Request, res: express.Response) => {
     const errorResponse = [];
@@ -65,4 +65,17 @@ export const deleteTodoList = async (req: express.Request, res: express.Response
       res.status(HttpStatusCode.BAD_REQUEST).send(response);
       return;
     }
+};
+
+
+export const deleteAllTodoList = async (req: express.Request, res: express.Response) => {
+  try {
+    const response = await proceedToDeleteAllTodoList();
+    res.status(response?.statusCode).send(response);
+    return;
+  } catch (error) {
+    const response = messageWrapper.errorMessageResponse(HttpStatusCode.BAD_REQUEST, error);
+    res.status(HttpStatusCode.BAD_REQUEST).send(response);
+    return;
+  }
 };

@@ -2,6 +2,7 @@ import {
   createTodoList,
   getTodoList,
   deleteTodoListById,
+  deleteAllTodoList,
 } from "../models/todoList";
 import { HttpStatusCode, MessageResponse } from "../helpers/constants";
 import { messageWrapper } from "../helpers/helpers";
@@ -35,3 +36,12 @@ export const proceedToDeleteTodoList = async (id: string) => {
     return messageWrapper.errorMessageResponse( HttpStatusCode.BAD_REQUEST, error );
   }
 };
+
+export const proceedToDeleteAllTodoList = async () => {
+    try {
+      const result = await deleteAllTodoList();
+      return messageWrapper.successMessageResponse( HttpStatusCode.ACCEPTED, MessageResponse.SUCCESS, result );
+    } catch (error) {
+      return messageWrapper.errorMessageResponse( HttpStatusCode.BAD_REQUEST, error );
+    }
+  };
